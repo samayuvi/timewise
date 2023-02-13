@@ -1,0 +1,19 @@
+{
+  "to_do" : "À faire",
+  "doing" : "Faire",
+  "done" : "Terminé",
+  "history" : "Histoire",
+  "item_title" : "Titre de la tâche",
+  "item_from" : "Description",
+  "add_item" : "Ajouter une tâche",
+  "summary" : "Résumé",
+  "status" : "Statut",
+  "start_date": "Date de début",
+  "completed_date": "Date d'achèvement",
+  "total_time_spent": "Temps total passé",
+  "start" : "Démarrer",
+  "stop" : "Arrête",
+  "time_tracker": "Suivi du temps",
+  "all": "Tout",
+  "undone" : "Non terminé"
+}

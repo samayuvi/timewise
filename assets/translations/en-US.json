@@ -1,0 +1,19 @@
+{
+  "to_do" : "To Do",
+  "doing" : "Doing",
+  "done" : "Done",
+  "history" : "History",
+  "item_title" : "Item Title",
+  "item_from" : "Item From",
+  "add_item" : "Add Item",
+  "summary" : "Summary",
+  "status" : "Status",
+  "start_date": "Start Date",
+  "completed_date": "Completed Date",
+  "total_time_spent": "Total Time Spent",
+  "start" : "Start",
+  "stop" : "Stop",
+  "time_tracker": "Time Tracker",
+  "all": "All",
+  "undone": "Undone"
+}
