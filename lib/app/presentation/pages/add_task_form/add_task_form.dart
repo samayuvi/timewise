@@ -2,11 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_wise/app/data/models/board_task_model.dart';
-import 'package:time_wise/app/domain/entities/board_list_entity.dart';
 import 'package:time_wise/app/domain/entities/board_task.dart';
 import 'package:time_wise/app/presentation/providers/board_data_provider.dart';
 import 'package:time_wise/generated/locale_keys.g.dart';
-import 'package:time_wise/utils/localization.dart';
 
 import 'components/add_task_button.dart';
 import 'components/add_task_drop_down_menu.dart';
@@ -68,11 +66,16 @@ class _AddTaskFormState extends State<AddTaskForm> {
                   height: 16.0,
                 ),
                 Center(
-                  child: AddTaskButton(
-                      boardDataService: boardDataService,
-                      dropdownValue: dropdownValue,
-                      itemTitle: itemTitle,
-                      itemFrom: itemFrom),
+                  child: AddTaskButton(onPressed: () {
+                    boardDataService.addItem(
+                        dropdownValue,
+                        BoardTaskEntity(
+                            columnName: dropdownValue,
+                            title: itemTitle,
+                            from: itemFrom,
+                            creationDate: DateTime.now()));
+                    Navigator.pop(context);
+                  },),
                 ),
               ],
             ),

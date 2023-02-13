@@ -8,30 +8,16 @@ import 'package:time_wise/generated/locale_keys.g.dart';
 class AddTaskButton extends StatelessWidget {
   const AddTaskButton({
     super.key,
-    required this.boardDataService,
-    required this.dropdownValue,
-    required this.itemTitle,
-    required this.itemFrom,
+    required this.onPressed
+
   });
 
-  final BoardDataService boardDataService;
-  final String dropdownValue;
-  final String itemTitle;
-  final String itemFrom;
+  final Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
     return RawMaterialButton(
-      onPressed: () {
-        boardDataService.addItem(
-            dropdownValue,
-            BoardTaskEntity(
-                columnName: dropdownValue,
-                title: itemTitle,
-                from: itemFrom,
-                creationDate: DateTime.now()));
-        Navigator.pop(context);
-      },
+      onPressed: onPressed,
       child: Text(
         LocaleKeys.add_item.tr(),
         style: const TextStyle(
