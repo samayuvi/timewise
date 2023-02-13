@@ -90,7 +90,6 @@ class BoardDataService with ChangeNotifier {
     });
 
     if (index != -1) {
-      print(item.title);
       await addBoardItemUseCase(item);
       await getBoardItems();
       notifyListeners();

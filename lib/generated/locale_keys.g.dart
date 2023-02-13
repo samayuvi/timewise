@@ -20,5 +20,9 @@ abstract class  LocaleKeys {
   static const time_tracker = 'time_tracker';
   static const all = 'all';
   static const undone = 'undone';
+  static const download_csv = 'download_csv';
+  static const change_theme = 'change_theme';
+  static const choose_language = 'choose_language';
+  static const logout = 'logout';
 
 }

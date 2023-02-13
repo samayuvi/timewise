@@ -1,8 +1,6 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:time_wise/app/domain/entities/board_task.dart';
-import 'package:time_wise/app/presentation/providers/board_data_provider.dart';
 import 'package:time_wise/generated/locale_keys.g.dart';
 
 class AddTaskButton extends StatelessWidget {

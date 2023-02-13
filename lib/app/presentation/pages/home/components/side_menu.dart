@@ -1,9 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_wise/app/presentation/navigation/main_navigation.dart';
 import 'package:time_wise/app/presentation/providers/auth/logout_provider.dart';
 import 'package:time_wise/app/presentation/providers/board_data_provider.dart';
 import 'package:time_wise/app/presentation/providers/theme_type_provider.dart';
+import 'package:time_wise/generated/locale_keys.g.dart';
 
 import 'language_choose_modal_widget.dart';
 
@@ -31,7 +33,7 @@ class SideMenu extends StatelessWidget {
                       Icons.history,
                       color: Theme.of(context).iconTheme.color,
                     ),
-                    title: const Text('History'),
+                    title: Text(LocaleKeys.history.tr()),
                   ),
                 ),
                 InkWell(
@@ -43,7 +45,7 @@ class SideMenu extends StatelessWidget {
                       Icons.download,
                       color: Theme.of(context).iconTheme.color,
                     ),
-                    title: const Text('Download CSV'),
+                    title: Text(LocaleKeys.download_csv.tr()),
                   ),
                 ),
                 InkWell(
@@ -59,7 +61,7 @@ class SideMenu extends StatelessWidget {
                           : Icons.dark_mode,
                       color: Theme.of(context).iconTheme.color,
                     ),
-                    title: const Text('Change Theme'),
+                    title:  Text(LocaleKeys.change_theme.tr()),
                   ),
                 ),
                 InkWell(
@@ -75,7 +77,7 @@ class SideMenu extends StatelessWidget {
                       Icons.language,
                       color: Theme.of(context).iconTheme.color,
                     ),
-                    title: const Text('Choose Language'),
+                    title: Text(LocaleKeys.choose_language.tr()),
                   ),
                 ),
               ],
@@ -84,9 +86,9 @@ class SideMenu extends StatelessWidget {
               onTap: () {
                 context.read<LogoutService>().signout();
               },
-              child: const ListTile(
-                leading: Icon(Icons.logout, color: Colors.red),
-                title: Text('Logout', style: TextStyle(color: Colors.red)),
+              child: ListTile(
+                leading: const Icon(Icons.logout, color: Colors.red),
+                title: Text(LocaleKeys.logout.tr(), style: const TextStyle(color: Colors.red)),
               ),
             ),
           ],

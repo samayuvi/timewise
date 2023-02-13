@@ -1,4 +1,9 @@
-//after firebase integration the tests stopped working
+/// After firebase integration the tests stopped working
+///best practice is to conduct them in Firebase test lab
+///Firebase Test Lab is a separated cloud-based app
+
+
+
 // import 'package:flutter_test/flutter_test.dart';
 // import 'package:time_wise/app/domain/entities/board_task.dart';
 // import 'package:time_wise/app/domain/entities/lap_entity.dart';

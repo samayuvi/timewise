@@ -15,5 +15,9 @@
   "stop" : "Arrête",
   "time_tracker": "Suivi du temps",
   "all": "Tout",
-  "undone" : "Non terminé"
+  "undone" : "Non terminé",
+  "download_csv": "Télécharger CSV",
+  "change_theme": "Changer de thème",
+  "choose_language": "Choisissez la langue",
+  "logout": "Se déconnecter"
 }

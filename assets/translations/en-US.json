@@ -3,8 +3,8 @@
   "doing" : "Doing",
   "done" : "Done",
   "history" : "History",
-  "item_title" : "Item Title",
-  "item_from" : "Item From",
+  "item_title" : "Task Title",
+  "item_from" : "Description",
   "add_item" : "Add Item",
   "summary" : "Summary",
   "status" : "Status",
@@ -15,5 +15,10 @@
   "stop" : "Stop",
   "time_tracker": "Time Tracker",
   "all": "All",
-  "undone": "Undone"
+  "undone": "Undone",
+  "download_csv": "Download CSV",
+  "change_theme": "Change Theme",
+  "choose_language": "Choose Language",
+  "logout": "Logout"
+
 }

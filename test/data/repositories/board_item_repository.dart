@@ -1,3 +1,8 @@
+/// After firebase integration the tests stopped working
+///best practice is to conduct them in Firebase test lab
+///Firebase Test Lab is a separated cloud-based app
+
+
 
 // import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:firebase_auth/firebase_auth.dart';

@@ -31,15 +31,19 @@ class CodegenLoader extends AssetLoader{
   "stop": "Arrête",
   "time_tracker": "Suivi du temps",
   "all": "Tout",
-  "undone": "Non terminé"
+  "undone": "Non terminé",
+  "download_csv": "Télécharger CSV",
+  "change_theme": "Changer de thème",
+  "choose_language": "Choisissez la langue",
+  "logout": "Se déconnecter"
 };
 static const Map<String,dynamic> en_US = {
   "to_do": "To Do",
   "doing": "Doing",
   "done": "Done",
   "history": "History",
-  "item_title": "Item Title",
-  "item_from": "Item From",
+  "item_title": "Task Title",
+  "item_from": "Description",
   "add_item": "Add Item",
   "summary": "Summary",
   "status": "Status",
@@ -50,7 +54,11 @@ static const Map<String,dynamic> en_US = {
   "stop": "Stop",
   "time_tracker": "Time Tracker",
   "all": "All",
-  "undone": "Undone"
+  "undone": "Undone",
+  "download_csv": "Download CSV",
+  "change_theme": "Change Theme",
+  "choose_language": "Choose Language",
+  "logout": "Logout"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"fr_FR": fr_FR, "en_US": en_US};
 }
