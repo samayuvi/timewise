@@ -48,9 +48,15 @@ class ScreenFactory {
   }
 
   Widget makeLogin() {
-    return ChangeNotifierProvider<LoginService>(
-      create: (BuildContext context) => LoginService(),
-
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<LoginService>(
+          create: (BuildContext context) => LoginService(),
+        ),
+        ChangeNotifierProvider<SignUpService>(
+          create: (BuildContext context) => SignUpService(),
+        ),
+      ],
       child: const LoginPage(),
     );
   }

@@ -12,6 +12,8 @@ class LoginService extends ChangeNotifier{
   String email = "";
   String password = "";
 
+  bool signedIn = false;
+
   LoginService();
 
 

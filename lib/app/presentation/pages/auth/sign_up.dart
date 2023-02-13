@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../navigation/main_navigation.dart';
 import '../../providers/auth/signup_provider.dart';
 import 'components/email_text_field.dart';
 import 'components/login_button.dart';
@@ -34,13 +33,14 @@ class SignUpPage extends StatelessWidget {
           LoginButton(
             onPressed: () {
               signUpService.register();
+              Navigator.pop(context);
             },
             text: "SIGN UP",
           ),
           UnderlinedTextButton(
             onPressed: () {
               Navigator.of(context)
-                  .pushReplacementNamed(MainNavigationRouteNames.login);
+                  .pop(context);
             },
             thinText: "Already have an account?",
             boldText: "Login",

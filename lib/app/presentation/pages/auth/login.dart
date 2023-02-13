@@ -25,7 +25,6 @@ class LoginPage extends StatelessWidget {
               //time wise logo
               const Text("Time Wise", style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),),
               const SizedBox(height: 30.0,),
-
               EmailTextField(onChanged: (String email){loginService.email = email;},),
               const SizedBox(height: 10.0),
               PasswordTextField(onChanged: (String password){loginService.password = password;}),
