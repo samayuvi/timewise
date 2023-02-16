@@ -1,9 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:time_wise/app/data/models/board_task_model.dart';
 import 'package:time_wise/app/domain/entities/board_task.dart';
-import 'package:time_wise/app/presentation/providers/history_provider.dart';
 import 'package:time_wise/generated/locale_keys.g.dart';
+
+import '../../../blocs/history/history_bloc.dart';
 
 class ItemSummary extends StatelessWidget {
   const ItemSummary({
@@ -99,7 +101,7 @@ class ItemSummary extends StatelessWidget {
                   LocaleKeys.total_time_spent.tr(),
                   style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
                 ),
-                Text(HistoryProvider()
+                Text(context.read<HistoryBloc>()
                     .calculateTotalTimeForHistory(item)),
               ],
             ),

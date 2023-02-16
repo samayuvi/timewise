@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_wise/app/presentation/navigation/main_navigation.dart';
 import 'package:time_wise/app/presentation/providers/auth/logout_provider.dart';
-import 'package:time_wise/app/presentation/providers/board_data_provider.dart';
 import 'package:time_wise/app/presentation/providers/theme_type_provider.dart';
 import 'package:time_wise/generated/locale_keys.g.dart';
 
+import '../../../blocs/board_data/board_data_bloc.dart';
 import 'language_choose_modal_widget.dart';
 
 class SideMenu extends StatelessWidget {
@@ -38,7 +38,7 @@ class SideMenu extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    context.read<BoardDataService>().exportToCSV();
+                    context.read<BoardDataBloc>().exportToCSV();
                   },
                   child: ListTile(
                     leading: Icon(

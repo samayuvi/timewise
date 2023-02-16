@@ -1,22 +1,23 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:time_wise/app/presentation/blocs/board_data/board_data_bloc.dart';
+import 'package:time_wise/app/presentation/blocs/firebase_auth/login/authentication_bloc.dart';
 import 'package:time_wise/app/presentation/pages/add_task_form/add_task_form.dart';
 
 import 'package:time_wise/app/presentation/pages/loading_page.dart';
-import 'package:time_wise/app/presentation/providers/history_provider.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../generated/codegen_loader.g.dart';
+import '../../presentation/blocs/history/history_bloc.dart';
 import '../../presentation/pages/auth/login.dart';
 import '../../presentation/pages/auth/sign_up.dart';
 import '../../presentation/pages/history/history.dart';
 import '../../presentation/pages/home/home_page.dart';
 import '../../presentation/pages/root_widget.dart';
 import '../../presentation/pages/timer_widget/timer_widget.dart';
-import '../../presentation/providers/auth/login_provider.dart';
 import '../../presentation/providers/auth/logout_provider.dart';
-import '../../presentation/providers/auth/signup_provider.dart';
-import '../../presentation/providers/board_data_provider.dart';
 import '../../presentation/providers/loading_provider.dart';
 import '../../presentation/providers/theme_type_provider.dart';
 import '../../presentation/providers/timer_provider.dart';
@@ -26,12 +27,12 @@ import '../entities/board_task.dart';
 
 class ScreenFactory {
 
-  Widget makeRootPage(){
+  Widget makeRootPage() {
     return EasyLocalization(
-      supportedLocales: const [Locale('en','US'), Locale('fr','FR')],
+      supportedLocales: const [Locale('en', 'US'), Locale('fr', 'FR')],
       assetLoader: const CodegenLoader(),
       path: 'assets/translations',
-      fallbackLocale: const Locale('en','US'),
+      fallbackLocale: const Locale('en', 'US'),
       child: ChangeNotifierProvider(
         create: (BuildContext context) => ThemeProvider(),
         child: const RootWidget(),
@@ -47,52 +48,52 @@ class ScreenFactory {
     );
   }
 
+
   Widget makeLogin() {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<LoginService>(
-          create: (BuildContext context) => LoginService(),
-        ),
-        ChangeNotifierProvider<SignUpService>(
-          create: (BuildContext context) => SignUpService(),
-        ),
-      ],
+    //login page in bloc provider
+    return BlocProvider(
+      create: (BuildContext context) => AuthenticationBloc(),
       child: const LoginPage(),
     );
   }
 
   Widget makeSignUp() {
-    return ChangeNotifierProvider<SignUpService>(
-      create: (BuildContext context) => SignUpService(),
-      child: const SignUpPage(),
-    );
+    return BlocProvider(
+        create: (BuildContext context) => AuthenticationBloc(),
+        child: const SignUpPage(),
+      );
   }
+
 
   Widget makeHomePage() {
     return MultiProvider(providers: [
-      ChangeNotifierProvider<BoardDataService>(
-          create: (BuildContext context) => BoardDataService()),
       ChangeNotifierProvider<LogoutService>(
           create: (BuildContext context) => LogoutService())
-    ], child: const Home());
+    ], child: BlocProvider(
+        create: (BuildContext context) => BoardDataBloc(),
+        child: const Home()));
   }
 
   Widget makeTimerWidget({required BoardTaskEntity boardTaskEntity}) {
     return ChangeNotifierProvider<TimerService>(
-        create: (BuildContext context) => TimerService(boardTaskEntity: boardTaskEntity),
+        create: (BuildContext context) =>
+            TimerService(boardTaskEntity: boardTaskEntity),
         child: const TimerWidget());
   }
 
   Widget makeHistory() {
-    return ChangeNotifierProvider<HistoryProvider>(
-        create: (BuildContext context) => HistoryProvider(),
-        child: const HistoryPage());
+    return BlocProvider(
+      create: (BuildContext context) => HistoryBloc(),
+
+          child: const HistoryPage()
+    );
   }
 
   //add task form
   Widget makeAddTaskForm() {
-    return ChangeNotifierProvider<BoardDataService>(
-        create: (BuildContext context) => BoardDataService(),
-        child: const AddTaskForm());
+    return BlocProvider(
+      create: (BuildContext context) => BoardDataBloc(),
+          child: const AddTaskForm()
+    );
   }
 }

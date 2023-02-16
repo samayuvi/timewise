@@ -2,9 +2,9 @@
 // filtering by date and type To Do, Doing, Done
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:time_wise/app/presentation/blocs/history/history_bloc.dart';
 
-import '../../providers/history_provider.dart';
 import 'components/history_app_bar.dart';
 import 'components/history_item.dart';
 
@@ -27,15 +27,25 @@ class _HistoryPageState extends State<HistoryPage> {
         appBar: const HistoryAppbar(),
         body: Padding(
           padding: const EdgeInsets.all(12.0),
-          child: Consumer<HistoryProvider>(
-            builder: (context, provider, child) {
-              List history = provider.currentTasks;
-              return ListView.builder(
-                  itemCount: history.length,
-                  itemBuilder: (context, index) {
-                    return HistoryItem(item: history[index]);
-                  });
-            },
+          child: BlocBuilder<HistoryBloc, HistoryState>(
+            builder: (context, state) {
+                  if(state is HistoryInitial) {
+                    context.read<HistoryBloc>().add(HistoryInitialEvent());
+                    return const CircularProgressIndicator();
+                  }
+                  if(state is HistoryLoaded) {
+
+                    return ListView.builder(
+                        itemCount: state.boardItems.length,
+                        itemBuilder: (context, index) {
+                          return HistoryItem(item: state.boardItems[index]);
+                        });
+                  }
+                  if(state is HistoryLoading) {
+                    return const Center(child:  CircularProgressIndicator());
+                  }
+                  return const Center(child:  Text("Error loading history"));
+            }
           ),
         ),
       ),

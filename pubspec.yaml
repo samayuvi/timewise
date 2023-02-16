@@ -18,6 +18,10 @@ dependencies:
   boardview: ^0.2.2
   mockito:
   easy_localization: ^3.0.1
+  flutter_bloc: ^8.1.2
+  bloc: ^8.1.1
+  bloc_provider: ^1.0.0
+  equatable: ^2.0.5
   provider: ^6.0.5
   flutter:
     sdk: flutter

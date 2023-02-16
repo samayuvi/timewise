@@ -1,37 +1,43 @@
-import 'package:flutter/cupertino.dart';
-import 'package:time_wise/app/data/models/board_task_model.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:time_wise/app/domain/entities/board_task.dart';
 import 'package:time_wise/app/domain/repositories/board_item_repository.dart';
 
-enum FilterType { all, done, undone, doing, todo }
+import '../../../data/models/board_task_model.dart';
 
-class HistoryProvider extends ChangeNotifier {
+part 'history_state.dart';
+part 'history_event.dart';
+
+class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
+
+
   final BoardItemRepository repository = FirebaseBoardItemRepositoryImpl();
-
-  bool loading = false;
-  FilterType _filterType = FilterType.all;
-
 
   List<BoardTaskEntity> history = [];
   List<BoardTaskEntity> currentTasks = [];
 
-  HistoryProvider() {
-    getHistory();
+  HistoryBloc() : super(HistoryInitial()){
+    on<HistoryInitialEvent>((event, emit) async{
+      emit(HistoryLoading());
+      try{
+        history = await repository.getBoardItems();
+        emit(HistoryLoaded(history));
+      } on Exception catch(e){
+        emit(HistoryError(e.toString()));
+      }
+    });
+    on<HistoryLoadEvent>((event, emit) async{
+      emit(HistoryLoading());
+      try{
+        filterType = event.filterType;
+        emit(HistoryLoaded(currentTasks));
+      } on Exception catch(e){
+        emit(HistoryError(e.toString()));
+      }
+    });
   }
-
-  Future<void> getHistory() async {
-    loading = true;
-    notifyListeners();
-    history = await repository.getBoardItems();
-    currentTasks = history;
-    loading = false;
-    notifyListeners();
-  }
-
-  FilterType get filterType => _filterType;
 
   set filterType(FilterType value) {
-    _filterType = value;
     if(value == FilterType.all){
       currentTasks = history;
     }else if(value == FilterType.done){
@@ -45,10 +51,7 @@ class HistoryProvider extends ChangeNotifier {
     else if(value == FilterType.todo){
       currentTasks = todoTasks;
     }
-    notifyListeners();
   }
-
-
   //get all tasks
   List<BoardTaskEntity> get allTasks => history
       .where((element) => element.columnName == MainColumnNames.done)
@@ -74,6 +77,7 @@ class HistoryProvider extends ChangeNotifier {
       .where((element) => element.columnName == MainColumnNames.todo)
       .toList();
 
+
   String calculateTotalTimeForHistory(BoardTaskEntity boardTaskEntity) {
     int totalSeconds = 0;
     if (boardTaskEntity.laps.isEmpty) return "00:00:00";
@@ -96,4 +100,6 @@ class HistoryProvider extends ChangeNotifier {
 
     return "$digitHours:$digitMinutes:$digitSeconds";
   }
+
+
 }

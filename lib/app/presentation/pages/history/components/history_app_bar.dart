@@ -1,8 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:time_wise/app/presentation/providers/history_provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:time_wise/generated/locale_keys.g.dart';
+
+import '../../../blocs/history/history_bloc.dart';
 
 class HistoryAppbar extends StatelessWidget implements PreferredSizeWidget
 {
@@ -22,7 +23,7 @@ class HistoryAppbar extends StatelessWidget implements PreferredSizeWidget
       actions: [
         PopupMenuButton(
           color: Theme.of(context).primaryColor,
-          icon: Icon(Icons.filter_list,color: Theme.of(context).secondaryHeaderColor,),
+          icon: Icon(Icons.filter_list,color: Theme.of(context).textTheme.bodyMedium!.color!,),
           itemBuilder: (context) => [
             PopupMenuItem(
               child: Row(
@@ -33,7 +34,7 @@ class HistoryAppbar extends StatelessWidget implements PreferredSizeWidget
                 ],
               ),
               onTap: () {
-                context.read<HistoryProvider>().filterType = FilterType.done;
+                context.read<HistoryBloc>().add(const HistoryLoadEvent(FilterType.done));
               },
             ),
             PopupMenuItem(
@@ -45,7 +46,7 @@ class HistoryAppbar extends StatelessWidget implements PreferredSizeWidget
                 ],
               ),
               onTap: () {
-                context.read<HistoryProvider>().filterType = FilterType.doing;
+                context.read<HistoryBloc>().add(const HistoryLoadEvent(FilterType.doing));
               },
             ),
             PopupMenuItem(
@@ -57,7 +58,7 @@ class HistoryAppbar extends StatelessWidget implements PreferredSizeWidget
                 ],
               ),
               onTap: (){
-                context.read<HistoryProvider>().filterType = FilterType.todo;
+                context.read<HistoryBloc>().add(const HistoryLoadEvent(FilterType.todo));
               },
             ),
             PopupMenuItem(
@@ -67,7 +68,7 @@ class HistoryAppbar extends StatelessWidget implements PreferredSizeWidget
                 ],
               ),
               onTap: (){
-                context.read<HistoryProvider>().filterType = FilterType.all;
+                context.read<HistoryBloc>().add(const HistoryLoadEvent(FilterType.all));
               },
             ),
             PopupMenuItem(
@@ -77,7 +78,7 @@ class HistoryAppbar extends StatelessWidget implements PreferredSizeWidget
                 ],
               ),
               onTap: (){
-                context.read<HistoryProvider>().filterType = FilterType.undone;
+                context.read<HistoryBloc>().add(const HistoryLoadEvent(FilterType.undone));
               },
             ),
           ],

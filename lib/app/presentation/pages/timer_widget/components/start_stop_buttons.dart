@@ -19,7 +19,9 @@ class StartStopButtons extends StatelessWidget {
         Expanded(
           child: RawMaterialButton(
             onPressed: () {
-              (!timerService.started) ? timerService.startTimer() : timerService.stopTimer();
+              (!timerService.started)
+                  ? timerService.startTimer()
+                  : timerService.stopTimer();
             },
             shape: const StadiumBorder(
               side: BorderSide(
@@ -27,7 +29,9 @@ class StartStopButtons extends StatelessWidget {
               ),
             ),
             child: Text(
-              (!timerService.started) ?LocaleKeys.start.tr() : LocaleKeys.stop.tr(),
+              (!timerService.started)
+                  ? LocaleKeys.start.tr()
+                  : LocaleKeys.stop.tr(),
               style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -35,9 +39,9 @@ class StartStopButtons extends StatelessWidget {
             ),
           ),
         ),
-
-        const SizedBox(width: 10,),
-
+        const SizedBox(
+          width: 10,
+        ),
         Expanded(
           child: RawMaterialButton(
             fillColor: Colors.blue,

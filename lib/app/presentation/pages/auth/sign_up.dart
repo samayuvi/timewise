@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:time_wise/app/presentation/blocs/firebase_auth/login/authentication_bloc.dart';
 
-import '../../providers/auth/signup_provider.dart';
 import 'components/email_text_field.dart';
 import 'components/login_button.dart';
 import 'components/password_text_field.dart';
@@ -12,7 +12,7 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final signUpService = context.watch<SignUpService>();
+    // final signUpService = context.watch<SignUpService>();
     return Scaffold(
         body: Center(
       child: Padding(
@@ -22,17 +22,18 @@ class SignUpPage extends StatelessWidget {
           const SizedBox(height: 30.0,),
           EmailTextField(
             onChanged: (String email) {
-              signUpService.email = email;
+              context.read<AuthenticationBloc>().add(UpdateEmailEvent(email: email));
             },
           ),
           const SizedBox(height: 10.0),
           PasswordTextField(onChanged: (String password) {
-            signUpService.password = password;
+            context.read<AuthenticationBloc>().add(UpdatePasswordEvent(password: password));
+
           }),
           const SizedBox(height: 16.0),
           LoginButton(
             onPressed: () {
-              signUpService.register();
+              context.read<AuthenticationBloc>().add(SignUpEvent());
               Navigator.pop(context);
             },
             text: "SIGN UP",
@@ -48,9 +49,13 @@ class SignUpPage extends StatelessWidget {
           const SizedBox(
             height: 10.0,
           ),
-          Text(
-            signUpService.errorMessage,
-            style: const TextStyle(color: Colors.red),
+          BlocBuilder<AuthenticationBloc,AuthenticationState>(
+            builder: (context, state) {
+              return Text(
+                state is ErrorState ? state.message : "",
+                style: const TextStyle(color: Colors.red),
+              );
+            }
           ),
         ]),
       ),

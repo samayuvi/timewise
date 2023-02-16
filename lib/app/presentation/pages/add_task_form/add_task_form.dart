@@ -1,9 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:time_wise/app/data/models/board_task_model.dart';
 import 'package:time_wise/app/domain/entities/board_task.dart';
-import 'package:time_wise/app/presentation/providers/board_data_provider.dart';
+import 'package:time_wise/app/presentation/blocs/board_data/board_data_bloc.dart';
 import 'package:time_wise/generated/locale_keys.g.dart';
 
 import 'components/add_task_button.dart';
@@ -24,7 +24,6 @@ class _AddTaskFormState extends State<AddTaskForm> {
 
   @override
   Widget build(BuildContext context) {
-    final boardDataService = Provider.of<BoardDataService>(context);
 
     return SafeArea(
       child: Builder(builder: (context) {
@@ -53,12 +52,26 @@ class _AddTaskFormState extends State<AddTaskForm> {
                 const SizedBox(height: 18.0),
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: StatefulBuilder(builder: (context, setState) {
-                    return AddTaskDropDownMenu(dropdownValue: dropdownValue,
+                  child: BlocBuilder<BoardDataBloc,BoardDataState>(builder: (context, state) {
+                    if(state is BoardDataInitial) {
+                      context.read<BoardDataBloc>().add(GetBoardDataEvent());
+                      return const CircularProgressIndicator();
+                    }
+                    if(state is BoardDataLoaded) {
+                      return AddTaskDropDownMenu(dropdownValue: dropdownValue,
                         onChanged: (String? value) {
                           dropdownValue = value!;
                           setState(() {});
-                        }, items: boardDataService.listData);
+                        }, items: state.boardListEntity);
+                    }
+                    if(state is BoardDataError) {
+                      return const Text("Error");
+                    }
+                    if(state is BoardDataLoading) {
+                      return const CircularProgressIndicator();
+                    }
+                    return const Text("There is some trouble :(");
+
 
                   }),
                 ),
@@ -67,13 +80,12 @@ class _AddTaskFormState extends State<AddTaskForm> {
                 ),
                 Center(
                   child: AddTaskButton(onPressed: () {
-                    boardDataService.addItem(
-                        dropdownValue,
-                        BoardTaskEntity(
-                            columnName: dropdownValue,
-                            title: itemTitle,
-                            from: itemFrom,
-                            creationDate: DateTime.now()));
+                    context.read<BoardDataBloc>().add(AddBoardItemEvent(columnName: dropdownValue, boardTaskEntity: BoardTaskEntity(
+                        columnName: dropdownValue,
+                        title: itemFrom,
+                        from: itemTitle,
+                        creationDate: DateTime.now())));
+
                     Navigator.pop(context);
                   },),
                 ),
