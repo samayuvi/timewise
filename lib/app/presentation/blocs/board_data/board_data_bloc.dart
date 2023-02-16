@@ -21,8 +21,8 @@ class BoardDataBloc extends Bloc<BoardDataEvent, BoardDataState> {
   AddBoardItem addBoardItemUseCase = AddBoardItem();
   UpdateBoardItem updateBoardItemUseCase = UpdateBoardItem();
   DeleteBoardItem deleteBoardItemUseCase = DeleteBoardItem();
-  bool disposed = false;
-  bool loading = false;
+
+
 
   List<BoardListEntity> get listData => _listData;
 
